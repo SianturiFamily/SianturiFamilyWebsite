@@ -7,7 +7,7 @@
   <style>
     body {
       margin: 0;
-      height: 110vh;
+      height: 200vh;
       background: linear-gradient(to bottom, #1a1a1f, #0d0d12),
                   url('https://images.unsplash.com/photo-1506748686212-91eb4d5f0cf6?crop=entropy&cs=tinysrgb&fit=max&ixid=MXwyMDg5OXwwfDF8c2VhY2h8MjZ8fGNpdHkzNjh8ZW58MHx8fHwxNjg5NzYxMTM&ixlib=rb-1.2.1&q=80&w=1080');
       background-size: cover;
@@ -122,27 +122,106 @@
       display: flex;
       
     }
+    .slideshow {
+  position: relative;
+  width: 90%;
+  max-width: 500px;
+  height: 180px;
+  margin: 10px auto 20px auto;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 0 8px #0ff;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+  opacity: 1;
+}
+.gallery-and-events {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.events-section {
+  text-align: center;
+  color: #cccccc;
+  font-family: 'Courier New', monospace;
+  padding: 20px;
+  border-top: 1px solid #0ff;
+  border-bottom: 1px solid #0ff;
+  max-width: 500px;
+}
+
+.events-section h2 {
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff8;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+.eventimg {
+  margin-bottom: 20px;
+  text-align: center;
+  justify-content: center;
+  position: relative;
+}
+
+.eventimg img {
+  width: 400px;
+  height: 300px;
+  padding: 10px;
+  border-radius: 50px;
+  box-shadow: #0ff;
+  
+}
+
   </style>
 </head>
 <body>
+  <div class="slideshow">
+  <img class="slide" src="IMG-20250514-WA0026.jpg" alt="Slide 1">
+  <img class="slide" src="IMG_20250514_171354.jpg" alt="Slide 2">
+  <img class="slide" src="IMG-20250514-WA0019.jpg" alt="Slide 3">
+    <img class="slide" src="IMG-20250514-WA0018.jpg" alt="Slide 4">
+</div>
   <h1>Sianturi Family</h1>
   <div class="helping">
     <p>Click One of the Picture <3</p>
 </div>
   <div class="container">
+  <div class="gallery-and-events">
     <div class="gallery">
       <img src="IMG-20250514-WA0026.jpg" alt="Mamak" onclick="showInfo('one')" />
       <img src="IMG_20250514_171354.jpg" alt="Oskar" onclick="showInfo('two')" />
       <img src="IMG-20250514-WA0019.jpg" alt="Esa" onclick="showInfo('three')" />
-      <img src='IMG-20250514-WA0018.jpg' alt="Esa"
-      onclick="showInfo('four')" />
+      <img src="IMG-20250514-WA0018.jpg" alt="Ginta" onclick="showInfo('four')" />
     </div>
-    <div class="info-overlay" id="info-overlay">
-  <button class="close-btn" onclick="closeOverlay()">×</button>
-  <h2 id="name">Click a family member</h2>
-  <p id="details">Their story will appear here.</p>
-</div>
 
+    <div class="events-section">
+      <h2>Our Events Info</h2>
+      <p>Coming soon: Oskar Pulang Kampung Tanggal 10-13 Juni</p>
+    </div>
+  </div>
+</div>
+  <div class="info-overlay" id="info-overlay">
+    <button class="close-btn" onclick="closeOverlay()">×</button>
+    <h2 id="name">Click a family member</h2>
+    <p id="details">Their story will appear here.</p>
+  </div>
+</div>
+<div class="eventimg">
+  <h3>---OUR MEMORY---</h3>
+  <img src="IMG-20250303-WA0008.jpg" alt="event1">
  <script>
   const overlay = document.getElementById("info-overlay");
   const nameEl = document.getElementById("name");
@@ -163,7 +242,7 @@
     },
     four: {
       name: "Ginta yeheskiel Brena (Ginta aja)",
-      details: "Umur ku 12 lahir di provinsi sumatera Utara letak di kota Medan di desa kabanjahe sekolah Masehi 1 kabanjahe talenta bermain bola basket dan catur. Kolose 3:23: Apa pun juga yang kamu perbuat, perbuatlah dengan segenap hatimu seperti untuk Tuhan dan bukan untuk manusia."
+      details: "Umur ku 12 lahir di provinsi sumatera Utara letak di kota Medan di desa kabanjahe sekolah Masehi 1 kabanjahe talenta bermain bola main basket catur. Kolose 3:23: Apa pun juga yang kamu perbuat, perbuatlah dengan segenap hatimu seperti untuk Tuhan dan bukan untuk manusia."
     }
   };
 
@@ -177,6 +256,23 @@
   function closeOverlay() {
     overlay.classList.remove("active");
   }
+  let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+
+function showSlide(index) {
+  slides.forEach((slide, i) => {
+    slide.classList.toggle('active', i === index);
+  });
+}
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}
+
+// Start slideshow
+showSlide(currentSlide);
+setInterval(nextSlide, 3000); // every 3 seconds
 </script>
 </body>
 </html>
