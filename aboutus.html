@@ -4,107 +4,54 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Family</title>
+
   <style>
+
+    /* =====================================
+       GLOBAL STYLE
+    ====================================== */
     body {
       margin: 0;
-      height: 200vh;
+      min-height: 100vh;
       background: linear-gradient(to bottom, #1a1a1f, #0d0d12),
-                  url('https://images.unsplash.com/photo-1506748686212-91eb4d5f0cf6?crop=entropy&cs=tinysrgb&fit=max&ixid=MXwyMDg5OXwwfDF8c2VhY2h8MjZ8fGNpdHkzNjh8ZW58MHx8fHwxNjg5NzYxMTM&ixlib=rb-1.2.1&q=80&w=1080');
+                  url('https://images.unsplash.com/photo-1506748686212-91eb4d5f0cf6?auto=format&fit=crop&w=1400&q=60');
       background-size: cover;
       background-position: center;
+      background-attachment: fixed;
       background-blend-mode: overlay;
       font-family: 'Courier New', monospace;
-      color: #cccccc;
-      justify-content: center;
+      color: #ccc;
+      padding-bottom: 80px;
     }
 
     h1 {
+      text-align: center;
+      margin-top: 10px;
       font-size: 2em;
       color: #ffb3ec;
-      text-shadow: 0 0 10px #ffb3ec88;
+      text-shadow: 0 0 10px #ffb3ecaa;
+    }
+
+    .helping p {
       text-align: center;
-    }
-
-    .container {
-      display: flex;
-      width: 100%;
-      max-width: 1200px;
-    }
-
-    .gallery {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .gallery img {
-      width: 150px;
-      border-radius: 10px;
-      cursor: pointer;
-      border: 2px solid #555;
-      transition: 0.3s;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-      border-color: #0ff;
-    }
-
-    @keyframes slideIn {
-      from { transform: translateX(100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    .info-box { display: none; }
-
-    .info-overlay {
-      position: fixed;
-      top: 0;
-      left: 100%;
-      width: 100%;
-      height: 100%;
-      background: #222;
-      color: #f4f4f4;
-      padding: 30px 20px;
-      box-sizing: border-box;
-      z-index: 1000;
-      transition: left 0.4s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      border-radius: 0;
-      box-shadow: -2px 0 20px rgba(0,255,255,0.2);
-    }
-
-    .info-overlay.active { left: 0; }
-
-    .info-overlay h2 {
+      font-size: 1.1em;
+      margin-top: -10px;
       color: #0ff;
-      margin-bottom: 15px;
-      font-family: Times New Roman;
+      text-shadow: 0 0 8px #0ff;
     }
 
-    .close-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      font-size: 24px;
-      background: none;
-      border: none;
-      color: #0ff;
-      cursor: pointer;
-    }
-
+    /* =====================================
+       SLIDESHOW
+    ====================================== */
     .slideshow {
       position: relative;
       width: 90%;
       max-width: 500px;
-      height: 180px;
-      margin: 10px auto 20px auto;
+      height: 200px;
+      margin: 20px auto;
       overflow: hidden;
-      border-radius: 12px;
-      box-shadow: 0 0 8px #0ff;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #0ff;
     }
 
     .slide {
@@ -113,57 +60,146 @@
       height: 100%;
       object-fit: cover;
       opacity: 0;
-      transition: opacity 1s ease-in-out;
+      transition: opacity 1.3s ease-in-out;
     }
 
-    .slide.active { opacity: 1; }
+    .slide.active {
+      opacity: 1;
+    }
+
+    /* =====================================
+       CONTAINER + GALLERY
+    ====================================== */
+    .container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
 
     .gallery-and-events {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 30px;
+      width: 100%;
     }
 
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px;
+    }
+
+    .gallery img {
+      width: 150px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 2px solid #0ff4;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 12px #000;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.06);
+      border-color: #0ff;
+      box-shadow: 0 0 12px #0ff;
+    }
+
+    /* =====================================
+       EVENTS SECTION
+    ====================================== */
     .events-section {
       text-align: center;
-      color: #cccccc;
-      font-family: 'Courier New', monospace;
-      padding: 20px;
+      padding: 15px;
       border-top: 1px solid #0ff;
       border-bottom: 1px solid #0ff;
+      width: 90%;
       max-width: 500px;
     }
 
     .events-section h2 {
       color: #0ff;
-      text-shadow: 0 0 5px #0ff8;
-      margin-bottom: 10px;
+      text-shadow: 0 0 8px #0ff;
     }
 
-    .eventimg {
-      margin-bottom: 20px;
+    /* =====================================
+       OVERLAY INFO POPUP
+    ====================================== */
+    .info-overlay {
+      position: fixed;
+      top: 0;
+      left: 100%;
+      width: 100%;
+      height: 100%;
+      background: #111e;
+      backdrop-filter: blur(4px);
+      color: #fff;
+      padding: 30px 20px;
+      box-sizing: border-box;
+      z-index: 1000;
+      transition: left 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       text-align: center;
-      position: relative;
+      box-shadow: -3px 0 20px rgba(0,255,255,0.4);
+    }
+
+    .info-overlay.active {
+      left: 0;
+    }
+
+    .info-overlay h2 {
+      color: #0ff;
+      margin-bottom: 10px;
+      font-size: 1.8em;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 30px;
+      background: none;
+      border: none;
+      color: #0ff;
+      cursor: pointer;
+      text-shadow: 0 0 10px #0ff;
+    }
+
+    /* =====================================
+       MEMORY PHOTO
+    ====================================== */
+    .eventimg {
+      margin-top: 40px;
+      text-align: center;
+      color: #0ff;
     }
 
     .eventimg img {
-      width: 400px;
-      height: 300px;
-      padding: 10px;
-      border-radius: 50px;
-      box-shadow: 0 0 10px #0ff;
+      width: 80%;
+      max-width: 400px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #0ff;
+      margin-top: 10px;
     }
 
-    /* New Aceh Trip Section */
+    /* =====================================
+       ACEH TRIP GALLERY
+    ====================================== */
     .aceh-section {
-      margin-top: 60px;
+      margin-top: 50px;
       text-align: center;
     }
 
     .aceh-section h2 {
       color: #0ff;
-      text-shadow: 0 0 8px #0ff8;
+      text-shadow: 0 0 10px #0ff;
       margin-bottom: 20px;
     }
 
@@ -171,12 +207,13 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 20px;
+      gap: 15px;
+      padding: 10px;
     }
 
     .aceh-gallery img {
-      width: 180px;
-      height: 140px;
+      width: 160px;
+      height: 130px;
       object-fit: cover;
       border-radius: 12px;
       border: 2px solid #0ff4;
@@ -187,65 +224,81 @@
       transform: scale(1.05);
       border-color: #0ff;
     }
+
+    /* =====================================
+       RESPONSIVE FIXES
+    ====================================== */
+    @media (max-width: 600px) {
+      .gallery img { width: 120px; height: 100px; }
+      .aceh-gallery img { width: 130px; height: 110px; }
+      .slideshow { height: 150px; }
+    }
+
   </style>
 </head>
 <body>
 
+  <!-- ================= SLIDESHOW ================= -->
   <div class="slideshow">
-    <img class="slide" src="IMG-20250514-WA0026.jpg" alt="Slide 1">
-    <img class="slide" src="IMG_20250514_171354.jpg" alt="Slide 2">
-    <img class="slide" src="IMG-20250514-WA0019.jpg" alt="Slide 3">
-    <img class="slide" src="IMG-20250514-WA0018.jpg" alt="Slide 4">
+    <img class="slide" src="IMG-20250514-WA0026.jpg">
+    <img class="slide" src="IMG_20250514_171354.jpg">
+    <img class="slide" src="IMG-20250514-WA0019.jpg">
+    <img class="slide" src="IMG-20250514-WA0018.jpg">
   </div>
 
   <h1>Sianturi Family</h1>
+  <div class="helping"><p>Click One of the Pictures ❤️</p></div>
 
-  <div class="helping"><p>Click One of the Picture <3</p></div>
-
+  <!-- ================= GALLERY ================= -->
   <div class="container">
     <div class="gallery-and-events">
+      
       <div class="gallery">
-        <img src="IMG-20250514-WA0026.jpg" alt="Mamak" onclick="showInfo('one')" />
-        <img src="IMG_20250514_171354.jpg" alt="Oskar" onclick="showInfo('two')" />
-        <img src="IMG-20250514-WA0019.jpg" alt="Esa" onclick="showInfo('three')" />
-        <img src="IMG-20250514-WA0018.jpg" alt="Ginta" onclick="showInfo('four')" />
+        <img src="IMG-20250514-WA0026.jpg" onclick="showInfo('one')">
+        <img src="IMG_20250514_171354.jpg" onclick="showInfo('two')">
+        <img src="IMG-20250514-WA0019.jpg" onclick="showInfo('three')">
+        <img src="IMG-20250514-WA0018.jpg" onclick="showInfo('four')">
       </div>
 
       <div class="events-section">
         <h2>Our Events Info</h2>
-        <p>Coming soon: Oskar Pulang Kampung Tanggal 10-13 Juni</p>
+        <p>Coming soon: Oskar Pulang Kampung Tanggal 10–13 Juni</p>
       </div>
+
     </div>
   </div>
 
+  <!-- ================= OVERLAY ================= -->
   <div class="info-overlay" id="info-overlay">
     <button class="close-btn" onclick="closeOverlay()">×</button>
     <h2 id="name">Click a family member</h2>
-    <p id="details">Their story will appear here.</p>
+    <p id="details"></p>
   </div>
 
+  <!-- ================= MEMORY IMAGE ================= -->
   <div class="eventimg">
-    <h3>---OUR MEMORY---</h3>
-    <img src="IMG-20250303-WA0008.jpg" alt="event1">
+    <h3>— OUR MEMORY —</h3>
+    <img src="IMG-20250303-WA0008.jpg">
   </div>
 
-  <!-- NEW ACEH TRIP GALLERY -->
+  <!-- ================= ACEH GALLERY ================= -->
   <div class="aceh-section">
     <h2>Aceh Trip</h2>
     <div class="aceh-gallery">
-      <img src="IMG-20251125-WA0033.jpg" alt="Aceh Photo 1">
-      <img src="IMG-20251129-WA0070.jpg" alt="Aceh Photo 2">
-      <img src="IMG-20251121-WA0032.jpg" alt="Aceh Photo 3">
-      <img src="IMG_7255.HEIC.jpg" alt="Aceh Photo 4">
-      <img src="IMG_7065.HEIC.jpg" alt="Aceh Photo 5">
-      <img src="IMG_8266.HEIC.jpg" alt="Aceh Photo 6">
-      <img src="IMG_8268.HEIC.jpg" alt="Aceh Photo 7">
-      <img src="IMG_7254.HEIC.jpg" alt="Aceh Photo 8">
-      <img src="IMG-20251125-WA0030.jpg" alt="Aceh Photo 9">
-      <img src="IMG_7035.HEIC.jpg" alt="Aceh Photo 10">
+      <img src="IMG-20251125-WA0033.jpg">
+      <img src="IMG-20251129-WA0070.jpg">
+      <img src="IMG-20251121-WA0032.jpg">
+      <img src="IMG_7255.HEIC.jpg">
+      <img src="IMG_7065.HEIC.jpg">
+      <img src="IMG_8266.HEIC.jpg">
+      <img src="IMG_8268.HEIC.jpg">
+      <img src="IMG_7254.HEIC.jpg">
+      <img src="IMG-20251125-WA0030.jpg">
+      <img src="IMG_7035.HEIC.jpg">
     </div>
   </div>
 
+  <!-- ================= SCRIPT ================= -->
   <script>
     const overlay = document.getElementById("info-overlay");
     const nameEl = document.getElementById("name");
@@ -254,26 +307,25 @@
     const infoData = {
       one: {
         name: "Dian Maya Sari br Bangun (Mamak)",
-        details: "Wanita kuat, penuh kasih sayang dan rajin berdoa. Penopang utama keluarga Sianturi. Amsal 31:27-28"
+        details: "Wanita kuat, penuh kasih sayang dan rajin berdoa. Penopang utama keluarga Sianturi. Amsal 31:27-28."
       },
       two: {
         name: "Oskar Saputra Sianturi (Bang Ua)",
-        details: "Pecinta MMA dan komputer, anak SMA, pandai Chemistry dan Sistem informasi. Filipi 1:21"
+        details: "Pecinta MMA, komputer, ahli kimia dan sistem informasi. Filipi 1:21."
       },
       three: {
         name: "Binesa Sianturi (Esa)",
-        details: "Anak penuh potensi, suka belajar dan membawa kebahagiaan di rumah. Yesaya 1:18"
+        details: "Anak penuh potensi, suka belajar dan membawa kebahagiaan di rumah. Yesaya 1:18."
       },
       four: {
-        name: "Ginta yeheskiel Brena (Ginta aja)",
-        details: "Berbakat main bola, basket, catur. Kolose 3:23"
+        name: "Ginta Yeheskiel Brena",
+        details: "Berbakat main bola, basket, dan catur. Kolose 3:23."
       }
     };
 
     function showInfo(key) {
-      const info = infoData[key];
-      nameEl.textContent = info.name;
-      detailsEl.textContent = info.details;
+      nameEl.textContent = infoData[key].name;
+      detailsEl.textContent = infoData[key].details;
       overlay.classList.add("active");
     }
 
@@ -282,12 +334,10 @@
     }
 
     let currentSlide = 0;
-    const slides = document.querySelectorAll('.slide');
+    const slides = document.querySelectorAll(".slide");
 
     function showSlide(index) {
-      slides.forEach((slide, i) => {
-        slide.classList.toggle('active', i === index);
-      });
+      slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
     }
 
     function nextSlide() {
@@ -295,7 +345,7 @@
       showSlide(currentSlide);
     }
 
-    showSlide(currentSlide);
+    showSlide(0);
     setInterval(nextSlide, 3000);
   </script>
 
