@@ -252,7 +252,7 @@
   <!-- ================= GALLERY ================= -->
   <div class="container">
     <div class="gallery-and-events">
-      
+
       <div class="gallery">
         <img src="IMG-20250514-WA0026.jpg" onclick="showInfo('one')">
         <img src="IMG_20250514_171354.jpg" onclick="showInfo('two')">
@@ -264,7 +264,7 @@
         <h2>Our Events Info</h2>
         <p> Done : Oskar Pulang Kampung Tanggal 10–13 Juni</p>
         <p> Done : Trip 5 Hari ke Aceh</p>
-        <p> Coming soon : Oskar Pulang Kampung tanggal 19-21 desember</p>
+        <p> Done : Oskar Pulang Kampung tanggal 19-21 desember</p>
       </div>
 
     </div>
@@ -302,54 +302,90 @@
 
   <!-- ================= SCRIPT ================= -->
   <script>
-    const overlay = document.getElementById("info-overlay");
-    const nameEl = document.getElementById("name");
-    const detailsEl = document.getElementById("details");
+  // 1. Data Configuration (Keys matched to your HTML: one, two, three, four)
+  const FAMILY_DATA = {
+    one: {
+      name: "Dian Maya Sari br Bangun (Mamak)",
+      details: "Wanita kuat, penuh kasih sayang dan rajin berdoa. Penopang utama keluarga Sianturi.",
+      birthday: "26 April 1985",
+      verse: "Amsal 31:27–28"
+    },
+    two: {
+      name: "Oskar Saputra Sianturi (Bang Ua)",
+      details: "Pecinta MMA, komputer, ahli kimia dan sistem informasi.",
+      birthday: "20 January 2007",
+      verse: "Filipi 1:21"
+    },
+    three: {
+      name: "Binesa Sianturi (Esa)",
+      details: "Anak penuh potensi, suka belajar dan membawa kebahagiaan di rumah.",
+      birthday: "2 March 2009",
+      verse: "Yesaya 1:18"
+    },
+    four: {
+      name: "Ginta Yeheskiel Brena",
+      details: "Berbakat main bola, basket, dan catur.",
+      birthday: "4 September 2012",
+      verse: "Kolose 3:23"
+    }
+  };
 
-    const infoData = {
-      one: {
-        name: "Dian Maya Sari br Bangun (Mamak)",
-        details: "Wanita kuat, penuh kasih sayang dan rajin berdoa. Penopang utama keluarga Sianturi. Amsal 31:27-28."
-      },
-      two: {
-        name: "Oskar Saputra Sianturi (Bang Ua)",
-        details: "Pecinta MMA, komputer, ahli kimia dan sistem informasi. Filipi 1:21."
-      },
-      three: {
-        name: "Binesa Sianturi (Esa)",
-        details: "Anak penuh potensi, suka belajar dan membawa kebahagiaan di rumah. Yesaya 1:18."
-      },
-      four: {
-        name: "Ginta Yeheskiel Brena",
-        details: "Berbakat main bola, basket, dan catur. Kolose 3:23."
-      }
-    };
+  // 2. Element Selectors
+  const overlay = document.getElementById("info-overlay");
+  const nameEl = document.getElementById("name");
+  const detailsEl = document.getElementById("details");
+  const slides = document.querySelectorAll(".slide");
 
-    function showInfo(key) {
-      nameEl.textContent = infoData[key].name;
-      detailsEl.textContent = infoData[key].details;
-      overlay.classList.add("active");
+  let currentSlide = 0;
+
+  // 3. Overlay Functions
+  function showInfo(key) {
+    const member = FAMILY_DATA[key];
+    
+    // Safety check: if the key doesn't exist, don't break the site
+    if (!member) {
+      console.error("No data found for key:", key);
+      return;
     }
 
-    function closeOverlay() {
-      overlay.classList.remove("active");
-    }
+    nameEl.textContent = member.name;
+    
+    // Using innerHTML for professional spacing and icons
+    detailsEl.innerHTML = `
+      <p style="margin-bottom: 15px; line-height: 1.5;">${member.details}</p>
+      <div style="border-top: 1px solid #eee; pt: 10px; font-weight: 500;">
+        <p style="margin: 5px 0;">🎂 <b>Birthday:</b> ${member.birthday}</p>
+        <p style="margin: 5px 0;">📖 <b>Verse:</b> ${member.verse}</p>
+      </div>
+    `;
+    
+    overlay.classList.add("active");
+  }
 
-    let currentSlide = 0;
-    const slides = document.querySelectorAll(".slide");
+  function closeOverlay() {
+    overlay.classList.remove("active");
+  }
 
-    function showSlide(index) {
-      slides.forEach((slide, i) => slide.classList.toggle("active", i === index));
-    }
+  // 4. Slider Logic
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === index);
+      // Ensure the slide looks clickable
+      slide.style.cursor = "pointer";
+    });
+  }
 
-    function nextSlide() {
-      currentSlide = (currentSlide + 1) % slides.length;
-      showSlide(currentSlide);
-    }
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
 
+  // 5. Initialization
+  document.addEventListener("DOMContentLoaded", () => {
     showSlide(0);
+    // Auto-advance every 3 seconds
     setInterval(nextSlide, 3000);
-  </script>
-
+  });
+</script>
 </body>
 </html>
